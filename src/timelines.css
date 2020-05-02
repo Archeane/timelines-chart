@@ -11,9 +11,9 @@
   user-select: none;
 
   .axises {
-    line, path {
+/*     line, path {
       stroke: #808080;
-    }
+    } */
 
     .x-axis {
       font: 12px sans-serif;
@@ -41,7 +41,7 @@
 
   .series-group {
     fill-opacity: 0.6;
-    stroke: #808080;
+/*     stroke: #808080; */
     stroke-opacity: 0.2;
   }
 
@@ -70,9 +70,9 @@
 }
 
 .brusher {
-  .grid-background {
+/*   .grid-background {
     fill: lightgrey;
-  }
+  } */
 
   .axis path {
     display: none;
@@ -82,27 +82,27 @@
     text-anchor: middle;
   }
 
-  .grid {
+/*   .grid {
     line, path {
       stroke: #fff;
     }
-  }
+  } */
 }
 
 .chart-zoom-selection, .brusher .brush .selection {
-  stroke: blue;
+  stroke: black;
   stroke-opacity: 0.6;
-  fill: blue;
+  fill: black;
   fill-opacity: 0.3;
   shape-rendering: crispEdges;
 }
 
 .chart-tooltip {
   color: #eee;
-  background: rgba(0,0,140,0.85);
+  background: rgba(0,0,0,0.8);
   padding: 5px;
   border-radius: 3px;
-  font: 11px sans-serif;
+  font: 13px sans-serif;
   z-index: 4000;
 
   &.group-tooltip {
