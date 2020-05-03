@@ -36,11 +36,11 @@ export default Kapsule({
 
     // Build dom
     state.svg = d3Select(el).append('svg').attr('class', 'brusher');
-    const brusher = state.svg.append('g').attr('class', 'brusher-margins');
-    brusher.append('rect').attr('class', 'grid-background');
-    brusher.append('g').attr('class', 'x grid');
-    brusher.append('g').attr('class', 'x axis');
-    brusher.append('g').attr('class', 'brush');
+    // const brusher = state.svg.append('g').attr('class', 'brusher-margins');
+    // brusher.append('rect').attr('class', 'grid-background');
+    // brusher.append('g').attr('class', 'x grid');
+    // brusher.append('g').attr('class', 'x axis');
+    // brusher.append('g').attr('class', 'brush');
   },
   update(state) {
     if (state.domainRange[1] <= state.domainRange[0]) return;
@@ -79,8 +79,8 @@ export default Kapsule({
       .call(state.xAxis)
       .selectAll('text').attr('y', 8);
 
-    state.svg.select('.brush')
-      .call(state.brush.extent([[0, 0], [brushWidth, brushHeight]]))
-      .call(state.brush.move, state.currentSelection.map(state.scale));
+    // state.svg.select('.brush')
+    //   .call(state.brush.extent([[0, 0], [brushWidth, brushHeight]]))
+    //   .call(state.brush.move, state.currentSelection.map(state.scale));
   }
 });

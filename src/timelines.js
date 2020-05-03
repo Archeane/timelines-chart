@@ -33,7 +33,7 @@ import {
   utcFormat as d3UtcFormat
 } from 'd3-time-format';
 import d3Tip from 'd3-tip';
-import { schemePastel1, schemeSet3, interpolateRdYlBu } from 'd3-scale-chromatic';
+import { schemeAccent, schemeSet3, interpolateRdYlBu } from 'd3-scale-chromatic';
 
 import { moveToFront as MoveToFront, gradient as Gradient } from 'svg-utils';
 import { fitToBox as TextFitToBox } from 'svg-text-fit';
@@ -131,7 +131,7 @@ export default Kapsule({
     zColorScale: { default: d3ScaleSequential(interpolateRdYlBu) },
     zQualitative: { default: false, onChange(discrete, state) {
       state.zColorScale = discrete
-        ? d3ScaleOrdinal([...schemePastel1, ...schemeSet3])
+        ? d3ScaleOrdinal([...schemeAccent, ...schemeSet3])
         : d3ScaleSequential(interpolateRdYlBu); // alt: d3.interpolateInferno
     }},
     zDataLabel: { default: '', triggerUpdate: false }, // Units of z data. Used in the tooltip descriptions
@@ -391,9 +391,9 @@ export default Kapsule({
 
       state.dateMarkerLine = state.svg.append('line').attr('class', 'x-axis-date-marker');
 
-      if (state.enableOverview) {
-        addOverviewArea();
-      }
+      // if (state.enableOverview) {
+      //   addOverviewArea();
+      // }
 
       // Applies to ordinal scales (invert not supported in d3)
       function invertOrdinal(val, cmpFunc) {
@@ -419,35 +419,6 @@ export default Kapsule({
         return this.domain()[this.domain().length-1];
       }
 
-      function addOverviewArea() {
-        state.overviewArea = TimeOverview()
-          .margins({ top: 1, right: 20, bottom: 20, left: 20 })
-          .onChange((startTime, endTime) => {
-            state.svg.dispatch('zoom', { detail: {
-              zoomX: [startTime, endTime],
-              zoomY: null
-            }});
-          })
-          .domainRange(state.zoomX)
-          .currentSelection(state.zoomX)
-          (state.overviewAreaElem.node());
-
-        state.svg.on('zoomScent', function() {
-          const zoomX = d3Event.detail.zoomX;
-
-          if (!state.overviewArea || !zoomX) return;
-
-          // Out of overview bounds > extend it
-          if (zoomX[0]<state.overviewArea.domainRange()[0] || zoomX[1]>state.overviewArea.domainRange()[1]) {
-            state.overviewArea.domainRange([
-              new Date(Math.min(zoomX[0], state.overviewArea.domainRange()[0])),
-              new Date(Math.max(zoomX[1], state.overviewArea.domainRange()[1]))
-            ]);
-          }
-
-          state.overviewArea.currentSelection(zoomX);
-        });
-      }
     }
 
     function addTooltips() {
